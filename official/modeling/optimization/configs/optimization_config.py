@@ -39,12 +39,14 @@ class OptimizerConfig(oneof.OneOfConfig):
     adam: adam optimizer config.
     adamw: adam with weight decay.
     lamb: lamb optimizer.
+    rmsprop: rmsprop optimizer.
   """
   type: Optional[str] = None
   sgd: opt_cfg.SGDConfig = opt_cfg.SGDConfig()
   adam: opt_cfg.AdamConfig = opt_cfg.AdamConfig()
   adamw: opt_cfg.AdamWeightDecayConfig = opt_cfg.AdamWeightDecayConfig()
   lamb: opt_cfg.LAMBConfig = opt_cfg.LAMBConfig()
+  rmsprop: opt_cfg.RMSPropConfig = opt_cfg.RMSPropConfig()
 
 
 @dataclasses.dataclass
@@ -76,7 +78,7 @@ class WarmupConfig(oneof.OneOfConfig):
   """
   type: Optional[str] = None
   linear: lr_cfg.LinearWarmupConfig = lr_cfg.LinearWarmupConfig()
-  polynomial: lr_cfg.PolinomialWarmupConfig = lr_cfg.PolinomialWarmupConfig()
+  polynomial: lr_cfg.PolynomialWarmupConfig = lr_cfg.PolynomialWarmupConfig()
 
 
 @dataclasses.dataclass
