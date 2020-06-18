@@ -108,6 +108,9 @@ class AntEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         obs = np.concatenate([obs, comvel])
     return obs
 
+  def get_current_obs(self):
+    return self._get_obs()
+
   def reset_model(self):
     qpos = self.init_qpos + self.np_random.uniform(
         size=self.model.nq, low=-.1, high=.1)

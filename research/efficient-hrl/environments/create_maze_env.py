@@ -15,15 +15,24 @@
 
 from environments.ant_maze_env import AntMazeEnv
 from environments.point_maze_env import PointMazeEnv
+from environments.ant_gather_env import AntGatherEnv
 
 import tensorflow as tf
 import gin.tf
+import math
 from tf_agents.environments import gym_wrapper
 from tf_agents.environments import tf_py_environment
 
 
 @gin.configurable
 def create_maze_env(env_name=None, top_down_view=False):
+  # XXX Hack to create gather environment
+  if env_name == 'AntGather':
+    gym_env = AntGatherEnv(activity_range=10.0, sensor_span=2.0*math.pi)
+    gym_env.reset()
+    wrapped_env = gym_wrapper.GymWrapper(gym_env)
+    return wrapped_env
+
   n_bins = 0
   manual_collision = False
   if env_name.startswith('Ego'):

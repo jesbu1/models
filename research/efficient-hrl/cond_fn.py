@@ -121,11 +121,17 @@ def every_n_episodes(agent,
   """
   assert steps_per_episode is not None
   del agent, action, transition_type
+  '''
   ant_fell = tf.logical_or(state[2] < 0.2, state[2] > 1.0)
   cond = tf.logical_and(
       tf.logical_or(
           ant_fell,
           tf.equal(tf.mod(num_episodes + 1, n), 0)),
+      tf.equal(tf.mod(environment_steps, steps_per_episode), 0))
+  '''
+  # Disable episode end if the ant fell
+  cond = tf.logical_and(
+      tf.equal(tf.mod(num_episodes + 1, n), 0),
       tf.equal(tf.mod(environment_steps, steps_per_episode), 0))
   return cond
 
